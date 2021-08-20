@@ -1,0 +1,7 @@
+.success {
+  list-style: none;
+  background-color: #0b8af8;
+  color: white;
+  box-shadow: 12px 12px 12px #b2d0ec;
+  text-align: center;
+}

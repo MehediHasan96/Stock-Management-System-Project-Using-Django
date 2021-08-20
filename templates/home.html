@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %} home {% endblock %}
+{% block body_block %}
+{% if messages %}
+<ul class="messages">
+       {% for message in messages %}
+             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+       {% endfor %}
+</ul>
+{% endif %}
+<div class="m-3" style="background-color: rgb(235, 229, 229);">
+<h1 class="text-center text-primary ">List of Item</h1>
+<form method='POST' class="col-lg-10 offset-lg-1">{% csrf_token %}
+    {{form|crispy}}
+        <input type="submit" value='Search' class="btn btn-success col text-center"/>
+</form>
+<br>
+<table class="table table-striped text-center">
+    
+    <thead>
+      <tr >
+        <th scope="col">COUNT</th>
+        <th scope="col">CATEGORY</th>
+    <th scope="col">ITEM NAME</th>
+        <th scope="col">QUANTITY IN STORE</th>
+        <th scope="col">REORDER LEVEL</th>
+        <th scope="col">CREATED</th>
+        <th scope="col">LAST UPDATED</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for data in data %}
+      <tr >
+          
+        <td>{{forloop.counter}}</td>
+        <td>{{data.category}}</td>
+        <td><a href="{% url 'update_item' pk=data.pk %}">{{data.item_name}}</a></td>
+        <td><a href="{% url 'item_details' pk=data.pk %}"> {% if data.quantity >= data.reorder_level %}
+          <div style="background-color: orange;">{{data.quantity}}</div>
+          {% else %}{{data.quantity}}
+          {% endif %}</a></td>
+          <td><a href="{% url 'reorder_level' pk=data.pk %}">{{data.reorder_level}}</a></td>
+        <td>{{data.created}}</td>
+        <td>{{data.last_updated}}</td>
+        <td><a href="{% url 'delete_item' pk=data.pk %}"><i class="fas fa-trash"></i></a></td>
+         
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html '%}
+{% load crispy_forms_tags %}
+{% block title_block %} list history {% endblock %}
+{% block body_block %}
+<div class="m-3" style="background-color: rgb(235, 229, 229);">
+<h1 class="text-center">List History</h1>
+<div class="col-lg-10 offset-lg-1">
+<form method='POST' >{% csrf_token %}
+  {{form|crispy}}
+  <input type="submit" value='Search' class="btn btn-success col text-center"/>
+</form>
+</div>
+<div class="display_table mt-3">
+    <table class='table'>
+      <thead>
+        <tr>
+          <th>COUNT</th>
+          <th>ID</th>
+          <th>CATEGORY</th>
+          <th>ITEM NAME</th>
+          <th>QUANTITY IN STORE</th>
+          <th>ISSUE QUANTITY</th>
+          <th>RECEIVE QUANTITY</th>
+          <th>Issue By</th>
+          <th>Receive By</th>
+          <th>LAST UPDATED</th>
+        </tr>
+      </thead>
+    {% for instance in data %}
+        <tr>
+
+          <td>{{forloop.counter}}</td>
+          <td>{{instance.id}}</td>
+          <td>{{instance.category}}</td>
+          <td>{{instance.item_name}}</td>
+          <td>{{instance.quantity}}</td>
+          <td>{{instance.issue_quantity}}</td>
+          <td>{{instance.receive_quantity}}</td>
+          <td>{{instance.issue_by}}</td>
+          <td>{{instance.receive_by}}</td>
+          <td>{{instance.last_updated}}</td>
+        </tr>
+    {% endfor %}
+  </table>
+</div>
+
+</div>
+{% endblock %}

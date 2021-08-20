@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %} add {% endblock %}
+{% block body_block %}
+<div class=mt-4>
+<h1>{{ title }}</h1>
+<form method="POST">
+{% csrf_token %}
+    {{form|crispy}}
+
+<input type="submit" value="Save">
+
+
+</div>
+
+
+
+</form>
+
+
+
+
+
+{% endblock %}

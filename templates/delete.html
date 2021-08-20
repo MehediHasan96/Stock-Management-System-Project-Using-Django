@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title_block %} delete {% endblock %}
+{% block body_block %}
+<div class="mt-4">
+       <form method="POST">
+           {% csrf_token %}
+        <h1 class="mt-4">Are you want to delete this item?</h1>
+        <input type="submit"class='btn btn-danger' value="Delete">
+        <a href="{% url 'item_list' %}"><div class="btn btn-primary">Cancel</div></a>
+
+       </form>
+    </div>
+
+
+       {% endblock %}

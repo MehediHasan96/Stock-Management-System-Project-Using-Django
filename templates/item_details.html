@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title_block %} item details {% endblock %}
+{% block body_block %}
+<ul class="messages">
+  {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+  {% endfor %}
+</ul>
+<div class="m-3" style="background-color: rgb(235, 229, 229);">
+
+<div>
+<table class="table table-striped text-center">
+    
+    <thead>
+      <tr >
+        
+        <th scope="col">CATEGORY</th>
+        <th scope="col">ITEM NAME</th>
+        <th scope="col">QUANTITY IN STORE</th>
+        <th scope="col">LAST UPDATED</th>
+        <th scope="col">REORDER LEVEL</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+        
+      <tr >
+        <td>{{data.category}}</td>
+        <td>{{data.item_name}}</td>
+        <td>{{data.quantity}}</td>
+        <td>{{data.last_updated}}</td>
+        <td>{{data.reorder_level}}</td>
+      </tr>
+    
+    </tbody>
+  </table>
+</div>
+  <div class="p-4">
+  <a href="{% url 'issue_items' data.id %}"><div class='btn btn-danger'>ISSUE THIS ITEM</div></a>
+  <a href="{% url 'receive_items' data.id %}"><div class='btn btn-primary'>RECEIVE THIS ITEM</div></a>
+</div>
+</div>
+
+{% endblock %}
