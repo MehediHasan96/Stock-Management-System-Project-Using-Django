@@ -11,30 +11,38 @@
 {% endif %}
 <div class="m-3" style="background-color: rgb(235, 229, 229);">
 <h1 class="text-center text-primary ">List of Item</h1>
-<form method='POST' class="col-lg-10 offset-lg-1">{% csrf_token %}
+<hr>
+<div class="row">
+  <div class="col-sm-2 pl-5">
+<form method='POST'>{% csrf_token %}
     {{form|crispy}}
         <input type="submit" value='Search' class="btn btn-success col text-center"/>
 </form>
-<br>
+
+<br><br>
+      <br>
+      <a href="{% url 'create_item'%}"><div class="btn btn-primary col text-center">Add Item</div></a><br><br>
+      <a href="{% url 'list_history'%}"><div class="btn btn-primary col text-center">History List</div></a><br>
+      <br>
+  </div>
+  <div class="col-sm-10">
 <table class="table table-striped text-center">
     
     <thead>
       <tr >
-        <th scope="col">COUNT</th>
         <th scope="col">CATEGORY</th>
     <th scope="col">ITEM NAME</th>
         <th scope="col">QUANTITY IN STORE</th>
         <th scope="col">REORDER LEVEL</th>
-        <th scope="col">CREATED</th>
-        <th scope="col">LAST UPDATED</th>
-        <th scope="col">Delete</th>
+       <th scope="col">LAST UPDATED</th>
+        <th scope="col">DELETE</th>
       </tr>
     </thead>
     <tbody>
         {% for data in data %}
       <tr >
           
-        <td>{{forloop.counter}}</td>
+        
         <td>{{data.category}}</td>
         <td><a href="{% url 'update_item' pk=data.pk %}">{{data.item_name}}</a></td>
         <td><a href="{% url 'item_details' pk=data.pk %}"> {% if data.quantity >= data.reorder_level %}
@@ -42,7 +50,6 @@
           {% else %}{{data.quantity}}
           {% endif %}</a></td>
           <td><a href="{% url 'reorder_level' pk=data.pk %}">{{data.reorder_level}}</a></td>
-        <td>{{data.created}}</td>
         <td>{{data.last_updated}}</td>
         <td><a href="{% url 'delete_item' pk=data.pk %}"><i class="fas fa-trash"></i></a></td>
          
@@ -51,5 +58,6 @@
     </tbody>
   </table>
 </div>
-
+</div>
+</div>
 {% endblock %}

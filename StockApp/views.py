@@ -1,12 +1,11 @@
-from ast import Str
-from django.http import HttpResponse, response
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from .models import Category, Stock, StockHistory
-from .forms import CreateStockForm, ReorderLevelForm, StockSearchForm, IssueForm, ReceiveForm, SignUpForm
+from .models import Stock, StockHistory
+from .forms import CreateStockForm, ReorderLevelForm, StockSearchForm, StockHistorySearchForm, IssueForm, ReceiveForm, SignUpForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.urls import reverse
 import csv
@@ -193,12 +192,16 @@ def reorder_level(request, pk):
 @login_required
 def list_history(request):
     data = StockHistory.objects.all()
-    form = StockSearchForm(request.POST or None)
+    form = StockHistorySearchForm(request.POST or None)
     if request.method == "POST":
         category = form['category'].value()
         data = StockHistory.objects.filter(
-            item_name__icontains=form['item_name'].value())
-
+            item_name__icontains=form['item_name'].value(),
+            last_updated__range=[
+                form['start_date'].value(),
+                form['end_date'].value()
+            ]
+        )
         if category != '':
             data = data.filter(category_id=category)
 

@@ -1,6 +1,5 @@
 from django import forms
-from django.db import models
-from django.db.models import fields
+from django.forms.widgets import TextInput
 from .models import Stock
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -13,6 +12,7 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 
+
 class CreateStockForm(forms.ModelForm):
     class Meta:
         model = Stock
@@ -21,6 +21,18 @@ class CreateStockForm(forms.ModelForm):
 
 class StockSearchForm(forms.ModelForm):
     export_to_CSV = forms.BooleanField(required=False)
+
+    class Meta:
+        model = Stock
+        fields = ['category', 'item_name']
+
+
+class StockHistorySearchForm(forms.ModelForm):
+    export_to_CSV = forms.BooleanField(required=False)
+    start_date = forms.DateField(
+        required=False, widget=forms.TextInput(attrs={'type': 'date'}))
+    end_date = forms.DateField(
+        required=False, widget=forms.TextInput(attrs={'type': 'date'}))
 
     class Meta:
         model = Stock
