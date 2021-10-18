@@ -30,9 +30,9 @@ class StockSearchForm(forms.ModelForm):
 class StockHistorySearchForm(forms.ModelForm):
     export_to_CSV = forms.BooleanField(required=False)
     start_date = forms.DateField(
-        required=False, widget=forms.TextInput(attrs={'type': 'date'}))
+        required=True, widget=forms.TextInput(attrs={'type': 'date'}))
     end_date = forms.DateField(
-        required=False, widget=forms.TextInput(attrs={'type': 'date'}))
+        required=True, widget=forms.TextInput(attrs={'type': 'date'}))
 
     class Meta:
         model = Stock
