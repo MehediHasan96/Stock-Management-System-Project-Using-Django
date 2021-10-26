@@ -1,6 +1,6 @@
 # Stock Management System
 
-A web application implemented using Python/Django(MVT structure).
+A web application implemented using Python/Django (MVT structure).
 
 
 
@@ -20,5 +20,7 @@ A web application implemented using Python/Django(MVT structure).
  * Clone the project
  * Import database MySQL Workbench or phpMyAdmin
  * Run your local machine or Create a virtual environment.
+ * python manage.py makemigrations
+ * python manage.py migrate
  * pip install -r requirements.txt
  * python manage.py runserver
